@@ -20,5 +20,10 @@ export default new Router({
       component: loadView('Registration'),
       meta: { title: 'Registration', lang: 'mr', icon : 'mdi mdi-account-edit' }
     },
+    {
+      path: "/admin",
+      name: "admin",
+      component: loadView("Admin")
+    }
   ]
 })
