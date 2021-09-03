@@ -34,7 +34,13 @@
         />
         <!-- 
         <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
-        <input type="date" class="form-control" id="birthday" name="birthday" />
+        <input
+          type="date"
+          class="form-control"
+          id="birthday"
+          name="birthday"
+          v-model="cabDetails.date"
+        />
 
         <b-form-select
           id="employee-program"
@@ -91,6 +97,7 @@
 
 <script>
 import Vue from "vue";
+import MQL from "@/plugins/mql";
 import {
   BForm,
   BFormGroup,
@@ -101,7 +108,7 @@ import {
   BFormCheckbox,
 } from "bootstrap-vue";
 
-Vue.prototype.PROGRAM_NAMES = ["PRONEXT", "DNEXT"]
+Vue.prototype.PROGRAM_NAMES = ["PRONEXT", "DNEXT"];
 
 export default {
   name: "RequestForm",
@@ -123,7 +130,7 @@ export default {
         programName: null,
       },
       cabDetails: {
-        date: new Date(),
+        date: "",
         total: 1,
         sourceAddress: "",
         destinationAddress: "",
@@ -138,31 +145,31 @@ export default {
     },
     submitForm() {
       new MQL()
-         .setActivity('o.[CreateCarRequest]')
-      
+        .setActivity("o.[CreateCarRequest]")
         .setData({
-          "empName":this.employee.name,          
-          "phone":this.employee.phone,
-          "travelDate":this.cabDetails.date,
-          "programName":this.employee.programName,
-          "passengers":this.cabDetails.total,
-          "pickup":this.cabDetails.sourceAddress,
-          "destination":this.cabDetails.destinationAddress,
-          "remarks":this.cabDetails.remarks,
-          "halt":this.cabDetails.halt,
-          "status":"false"
-        })      
-      
+          empName: this.employee.name,
+          phone: this.employee.phone,
+          travelDate: this.cabDetails.date,
+          programName: this.employee.programName,
+          passengers: this.cabDetails.total,
+          pickup: this.cabDetails.sourceAddress,
+          destination: this.cabDetails.destinationAddress,
+          remarks: this.cabDetails.remarks,
+          halt: this.cabDetails.halt,
+          status: "false",
+        })
+
         .enablePageLoader(true)
         .showConfirmDialog(true)
-        .fetch('a11').then(res => {
-          console.log(res)
+        .fetch("a11")
+        .then((res) => {
+          console.log(res);
           // let r = res.getRaw(true)
-          console.log(res.isValid())          
-        })
-  }
+          console.log(res.isValid());
+        });
+    },
   },
-  
+
   computed: {
     suggestedEmail: function () {
       let splitName = this.employee.name.trim().split(" ");
@@ -179,9 +186,9 @@ export default {
           "@mkcl.org"
         );
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
