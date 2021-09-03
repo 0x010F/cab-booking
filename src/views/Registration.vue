@@ -1,26 +1,17 @@
 <template>
-  <div>
+  <div class="main-form">
+    <h1>Online Cab Request</h1>
     <b-form class="row my-2" @submit.prevent="submitForm">
       <div class="col-12 col-md-6">
-        <b-form-group
-          label="Employee Name"
-          label-for="employee-name"
-          class="mb-2"
-        >
-          <b-form-input
-            id="employee-name"
-            v-model="employee.name"
-            type="text"
-            placeholder="Enter your name"
-            required
-          />
-        </b-form-group>
-        <b-form-group
-          label="Employee Email"
-          label-for="employee-email"
-          class="mb-2"
-        >
-          <b-form-input
+        <b-form-input
+          id="employee-name"
+          v-model="employee.name"
+          type="text"
+          placeholder="Enter your name"
+          required
+        />
+
+        <!-- <b-form-input
             id="employee-email"
             v-model="employee.email"
             type="email"
@@ -32,100 +23,68 @@
             <span @click="addSuggestedEmail" class="btn-link">{{
               suggestedEmail
             }}</span>
-          </span>
-        </b-form-group>
-        <b-form-group
-          label="Employee Phone Number"
-          label-for="employee-phone"
-          class="mb-2"
-        >
-          <b-form-input
-            id="employee-phone"
-            v-model="employee.phone"
-            type="text"
-            placeholder="Enter your phone number"
-            required
-          />
-        </b-form-group>
-        <b-form-group
-          label="Date of Travelling"
-          label-for="details-date"
-          class="mb-2"
-        >
-          <b-form-datepicker
-            id="details-date"
-            v-model="cabDetails.date"
-          ></b-form-datepicker>
-        </b-form-group>
-        <b-form-group
-          label="Program Name"
-          label-for="employee-program"
-          class="mb-2"
-        >
-          <b-form-select
-            id="employee-program"
-            v-model="employee.programName"
-            :options="PROGRAM_NAMES"
-          />
-        </b-form-group>
-        <b-form-group
-          label="Total number of passengers"
-          label-for="details-total"
-          class="mb-2"
-        >
-          <b-form-input
-            id="details-total"
-            type="number"
-            v-model="cabDetails.total"
-            placeholder="Enter total number of passengers"
-            required
-            min="1"
-          />
-        </b-form-group>
+          </span> -->
+
+        <b-form-input
+          id="employee-phone"
+          v-model="employee.phone"
+          type="text"
+          placeholder="Enter your phone number"
+          required
+        />
+<!-- 
+        <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
+        <input type="date" class="form-control" id="birthday" name="birthday">
+
+        <b-form-select
+          id="employee-program"
+          v-model="employee.programName"
+          :options="PROGRAM_NAMES"
+          placeholder="Program name"
+        />
+
+        <b-form-input
+          id="details-total"
+          type="number"
+          v-model="cabDetails.total"
+          placeholder="Enter total number of passengers"
+          required
+          min="1"
+        />
       </div>
       <div class="col-12 col-md-6">
-        <b-form-group
-          label="Pickup Address of the First Person"
-          label-for="details-source-address"
-          class="mb-2"
+        <b-form-textarea
+          id="details-source-address"
+          v-model="cabDetails.sourceAddress"
+          placeholder="First Address for pickup"
+        />
+
+        <b-form-textarea
+          id="details-destination-address"
+          v-model="cabDetails.destinationAddress"
+          placeholder="Destination Address"
         >
-          <b-form-textarea
-            id="details-source-address"
-            v-model="cabDetails.sourceAddress"
-          />
-        </b-form-group>
-        <b-form-group
-          label="Destination address"
-          label-for="details-destination-address"
-          class="mb-2"
-        >
-          <b-form-textarea
-            id="details-destination-address"
-            v-model="cabDetails.destinationAddress"
-          >
-          </b-form-textarea>
-        </b-form-group>
+        </b-form-textarea>
       </div>
-      <div class="col-12 col-md-6">
-        <b-form-group
-          label="Remarks if any (optional)"
-          label-for="details-remarks"
-          class="mb-2"
+
+        <div class="col-12 col-md-6 col-lg-6">
+        <b-form-textarea
+        class="m-0"
+          id="details-remarks"
+          v-model="cabDetails.remarks"
+          placeholder="Remark if any"
+        />
+
+        <b-form-checkbox id="details-halt" v-model="cabDetails.halt" class="m-1"
+          >Halt? (if any)</b-form-checkbox
         >
-          <b-form-textarea id="details-remarks" v-model="cabDetails.remarks" />
-        </b-form-group>
-        <b-form-group
-          label="Halt? (if any)"
-          label-for="details-halt"
-          class="d-flex align-items-center mb-2"
+        </div>
+
+
+      <div class="col-12  d-flex justify-content-center ">
+        <b-button class="mt-3" type="submit" variant="primary"
+          >Submit</b-button
         >
-          <b-form-checkbox
-            id="details-halt"
-            v-model="cabDetails.halt"
-            class="m-1"
-          />
-        </b-form-group>
-        <b-button type="submit" variant="primary">Submit</b-button>
       </div>
     </b-form>
   </div>
@@ -143,7 +102,7 @@ import {
   BFormCheckbox,
 } from "bootstrap-vue";
 
-Vue.prototype.PROGRAM_NAMES = ["PRONEXT", "DNEXT"];
+Vue.prototype.PROGRAM_NAMES = ["PRONEXT", "DNEXT"]
 
 export default {
   name: "RequestForm",
@@ -206,12 +165,25 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .custom-select {
   padding: 0.5rem;
   width: 100%;
   background-color: transparent;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+}
+.form-control {
+  margin: 1rem 0;
+}
+#details-date__value_ {
+  margin: 0 !important;
+  border: none;
+}
+.main-form{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
