@@ -200,7 +200,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/server': {
-        target: 'http://localhost:8080', // provide proxy  for your project
+        target: 'https://cs.mkcl.org/1tnTkU5kI7a4Kun9JlxkhUc1TDO', // provide proxy  for your project
         ws: true,
         changeOrigin: true,
         pathRewrite: {

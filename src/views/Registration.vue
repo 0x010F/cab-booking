@@ -32,9 +32,9 @@
           placeholder="Enter your phone number"
           required
         />
-<!-- 
+        <!-- 
         <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
-        <input type="date" class="form-control" id="birthday" name="birthday">
+        <input type="date" class="form-control" id="birthday" name="birthday" />
 
         <b-form-select
           id="employee-program"
@@ -67,9 +67,9 @@
         </b-form-textarea>
       </div>
 
-        <div class="col-12 col-md-6 col-lg-6">
+      <div class="col-12 col-md-6 col-lg-6">
         <b-form-textarea
-        class="m-0"
+          class="m-0"
           id="details-remarks"
           v-model="cabDetails.remarks"
           placeholder="Remark if any"
@@ -78,11 +78,10 @@
         <b-form-checkbox id="details-halt" v-model="cabDetails.halt" class="m-1"
           >Halt? (if any)</b-form-checkbox
         >
-        </div>
+      </div>
 
-
-      <div class="col-12  d-flex justify-content-center ">
-        <b-button class="mt-3" type="submit" variant="primary"
+      <div class="col-12 d-flex justify-content-center">
+        <b-button class="mt-3" type="submit" id="a11" variant="primary"
           >Submit</b-button
         >
       </div>
@@ -138,12 +137,32 @@ export default {
       this.employee.email = this.suggestedEmail;
     },
     submitForm() {
-      console.log({
-        ...this.employee,
-        ...this.cabDetails,
-      });
-    },
+      new MQL()
+         .setActivity('o.[CreateCarRequest]')
+      
+        .setData({
+          "empName":this.employee.name,          
+          "phone":this.employee.phone,
+          "travelDate":this.cabDetails.date,
+          "programName":this.employee.programName,
+          "passengers":this.cabDetails.total,
+          "pickup":this.cabDetails.sourceAddress,
+          "destination":this.cabDetails.destinationAddress,
+          "remarks":this.cabDetails.remarks,
+          "halt":this.cabDetails.halt,
+          "status":"false"
+        })      
+      
+        .enablePageLoader(true)
+        .showConfirmDialog(true)
+        .fetch('a11').then(res => {
+          console.log(res)
+          // let r = res.getRaw(true)
+          console.log(res.isValid())          
+        })
+  }
   },
+  
   computed: {
     suggestedEmail: function () {
       let splitName = this.employee.name.trim().split(" ");
@@ -160,9 +179,9 @@ export default {
           "@mkcl.org"
         );
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>
@@ -180,7 +199,7 @@ export default {
   margin: 0 !important;
   border: none;
 }
-.main-form{
+.main-form {
   position: relative;
   top: 50%;
   left: 50%;
