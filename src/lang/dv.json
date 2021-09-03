@@ -1,0 +1,28 @@
+{
+    "about": {
+      "aboutHeading": "aboutHeading"
+    },
+    "home": {
+      "homeTitle": "homeTitle"
+    },
+    "demo": {
+      "demoHeading": "demoHeading"
+    },
+    "component2": {
+      "title": "title"
+    },
+    "validation": {
+      "nameRequired": "nameRequired",
+      "nameAlpha": "nameAlpha",
+      "emailValid": "emailValid",
+      "emailRequired": "emailRequired",
+      "phoneNumeric": "phoneNumeric",
+      "phoneRequired": "phoneRequired",
+      "fullnameRequired": "fullnameRequired",
+      "fullnameValidate": "fullnameValidate",
+      "credit_cardRequired": "credit_cardRequired",
+      "credit_cardValidate": "credit_cardValidate",
+      "ipValid": "ipValid",
+      "phoneMinLength": "phoneMinLength"
+    }
+  }
