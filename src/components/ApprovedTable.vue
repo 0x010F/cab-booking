@@ -1,21 +1,24 @@
 <template>
   <div>
-    <table>
-      <tr>
+    <h3>Booked History</h3>
+    <table >
+      <thead >
+      <tr >
         <th>Name</th>
         <th>Destination</th>
         <th>Number of people going</th>
         <th>Date of Going</th>
-        <th>status</th>
+        <th>Status</th>
       </tr>
+      </thead>
 
       <tr v-for="requests in inftwo" :key="requests.name">
         <td>{{ requests.name }}</td>
         <td>{{ requests.dest }}</td>
         <td>{{ requests.nump }}</td>
         <td>{{ requests.date }}</td>
-        <td>
-          <button @click="done(idx)">Booking</button>
+        <td class="text-center">
+          <button class="btn btn-success" >Booked</button>
         </td>
       </tr>
     </table>
@@ -47,19 +50,24 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
   width: 100%;
 }
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
+th{
+  text-align: center;
+  font-weight: 400;
 }
-tr:nth-child(even) {
-  background-color: #dddddd;
+thead{
+  color: white;
+  background-color: rgb(31, 32, 34);
+}
+h3{
+  margin-top: 20px;
+  font-weight: bolder;
+}
+td{
+  text-align: center;
+  background-color: rgb(255, 255, 255);
 }
 </style>

@@ -34,14 +34,15 @@
         />
 <!-- 
         <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
-        <input type="date" class="form-control" id="birthday" name="birthday">
+        <input type="date" class="form-control" id="date" name="Date" >
 
         <b-form-select
+          class="form-control"
           id="employee-program"
           v-model="employee.programName"
           :options="PROGRAM_NAMES"
           placeholder="Program name"
-        />
+        >Program name</b-form-select>
 
         <b-form-input
           id="details-total"
@@ -67,6 +68,7 @@
         </b-form-textarea>
       </div>
 
+        <div class="row">
         <div class="col-12 col-md-6 col-lg-6">
         <b-form-textarea
         class="m-0"
@@ -74,15 +76,14 @@
           v-model="cabDetails.remarks"
           placeholder="Remark if any"
         />
-
-        <b-form-checkbox id="details-halt" v-model="cabDetails.halt" class="m-1"
-          >Halt? (if any)</b-form-checkbox
-        >
+        <b-form-checkbox id="details-halt" v-model="cabDetails.halt" class="m-1" style="color:black"
+          >Halt? (if any)</b-form-checkbox>
+        </div>
+        <div class=" col-lg-6"><img class="car" src="https://static.toyotabharat.com/images/showroom/innova-mmc/car-01-1600x900.png" alt="Car" ></div>
         </div>
 
-
       <div class="col-12  d-flex justify-content-center ">
-        <b-button class="mt-3" type="submit" variant="primary"
+        <b-button class="mt-3 btn-lg btn-danger" type="submit" variant="primary"
           >Submit</b-button
         >
       </div>
@@ -158,14 +159,22 @@ export default {
           splitName[0].toLowerCase() +
           splitName[1].charAt(0).toLowerCase() +
           "@mkcl.org"
-        );
+        )
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>
+.row{
+  margin: 0;
+}
+.car{
+  margin-top: -120px;
+  width: 100%;
+  height: auto;
+}
 .custom-select {
   padding: 0.5rem;
   width: 100%;
@@ -173,8 +182,21 @@ export default {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
+h1{
+  color: rgb(34, 34, 34);
+  font-weight: bold;
+}
 .form-control {
   margin: 1rem 0;
+  background-color: rgb(22, 22, 22);
+}
+.form-control:focus{
+  border-color:black;
+  box-shadow: none;
+}
+::placeholder{
+  color: white;
+  opacity: 1;
 }
 #details-date__value_ {
   margin: 0 !important;
@@ -185,5 +207,14 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+@media screen and (max-width: 720px) {
+  .car{
+    visibility: hidden;
+  }
+  h1{
+    font-size: 2rem;
+    font-weight: bold;
+  }
 }
 </style>

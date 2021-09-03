@@ -2,13 +2,13 @@
   <section id="login">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-4 offset-md-4">
+        <div class="col-md-5 offset-md-2">
           <div class="login-card">
             <img
               src="../assets/mkcl-logo.png"
               alt="mkcl logo"
-              class="mb-4"
-              width="100px"
+              class="mb-3 mx-auto d-block"
+              width="50%"
             >
             <div
               id="loginFormId"
@@ -28,6 +28,7 @@
                 class="form-control"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
+                style="background-color:white"
               >
               <small
                 id="emailHelp"
@@ -49,8 +50,10 @@
                 id="password"
                 @blur="showPassInfo = false"
                 placeholder="Password"
+                style="background-color:white"
               >
             </div>
+            <div class="text-center">
             <button
               id="loginBtn"
               type="submit"
@@ -68,6 +71,7 @@
             >
               Show
             </button>
+            </div>
           </div>
         </div>
         <div class="col-md-4">
@@ -224,11 +228,16 @@ export default {
 
 <style lang="scss">
 #login {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   .login-card {
-    box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px rgb(182, 181, 181);
     padding: 30px;
   }
 }
+
 #pswd_info {
   background: #dfdfdf none repeat scroll 0 0;
   color: #fff;

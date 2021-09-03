@@ -1,5 +1,5 @@
 <template>
-  <div>This isAdmin Page
+  <div>
       <PendingTable :requests="cablistp"></PendingTable>
             <ApprovedTable :requests="cablistp"></ApprovedTable>
     </div>
