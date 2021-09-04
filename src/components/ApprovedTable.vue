@@ -1,53 +1,52 @@
 <template>
   <div>
     <h3>Booked History</h3>
-    <table >
-      <thead >
-      <tr >
-        <th>Name</th>
-        <th>Destination</th>
-        <th>Number of people going</th>
-        <th>Date of Going</th>
-        <th>Status</th>
-      </tr>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Destination</th>
+          <th>Number of people going</th>
+          <th>Date of Going</th>
+          <th>Status</th>
+        </tr>
       </thead>
 
-      <tr v-for="requests in inftwo" :key="requests.name">
-        <td>{{ requests.name }}</td>
-        <td>{{ requests.dest }}</td>
-        <td>{{ requests.nump }}</td>
-        <td>{{ requests.date }}</td>
+      <tr  v-for="requests in allRequests" :key="requests.reqId" >
+              <template v-if="requests.status === 'approved'">
+
+         <td>{{ requests.empName }}</td>
+        <td>{{ requests.destination }}</td>
+        <td>{{ requests.passengers }}</td>
+        <td>{{ requests.travelDate }}</td>
         <td class="text-center">
-          <button class="btn btn-success" >Booked</button>
+          <button class="btn btn-success">
+            Booked
+          </button>
         </td>
+        </template>
       </tr>
     </table>
-   
   </div>
 </template>
 
 <script>
 export default {
-  name: "Admin",
-  props:['requests'],
-  data() {
+  name: 'Admin',
+  props: ['allRequests'],
+  data () {
     return {
-     
-    };
+
+    }
   },
-  methods: {
-    done: function (par) {
-      this.requests[par].status = true;
-      this.$emit("sendData",this.requests)
-    },
-  },
-  computed:{
-      
-      inftwo :function(){
-         return this.requests.filter(i => i.status==true)
-      }
+ 
+  computed: {
+
+    inftwo: function () {
+      return this.allRequests.filter(i => i.status == "approved")
+    }
   }
-};
+}
 </script>
 
 <style scoped>

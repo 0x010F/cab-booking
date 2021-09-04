@@ -1,59 +1,116 @@
 <template>
   <div>
-    <h3 style="font-weight: bolder">Pending Request</h3>
+    <h3 style="font-weight: bolder">
+      Pending Request
+    </h3>
     <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>Destination</th>
-          <th>Number of people going</th>
-          <th>Date of Going</th>
+          <th>Total Passengers</th>
+          <th>Date of Travel</th>
           <th>Status</th>
+          <th>Approval Status</th>
         </tr>
       </thead>
       <div v-if="infone.length === 0">
-        <p>No requests pending</p>
+        <h3 class="noneLeft">No requests pending</h3>
       </div>
-      <tr v-for="requests in infone" :key="requests.reqId">
-        <td>{{ requests.name }}</td>
-        <td>{{ requests.dest }}</td>
-        <td>{{ requests.nump }}</td>
-        <td>{{ requests.date }}</td>
+      <tr  v-for="request in allRequests" :key="request._id" >
+
+      <template v-if="request.status === 'pending'">
+
+        <td>{{ request.empName }}</td>
+        <td>{{ request.destination }}</td>
+        <td>{{ request.passengers }}</td>
+        <td>{{ request.travelDate }}</td>
+         <td>{{ request.status }}</td>
+
         <td class="text-center">
-          <button class="btn btn-success mx-1" @click="done(requests)">
+          <button
+            class="btn btn-success mx-1"
+            @click="Approve(request)"
+          >
             Approve
           </button>
-          <button class="btn btn-danger mx-1" @click="reject(requests)">
+          <button
+            class="btn btn-danger mx-1"
+            @click="Reject(request)"
+          >
             Reject
           </button>
         </td>
-      </tr>
+             </template>
+
+     </tr>
     </table>
   </div>
 </template>
 
 <script>
+import MQL from '@/plugins/mql.js'
+
 export default {
-  name: "Admin",
-  props: ["requests"],
+  name: 'Admin',
+  props: ['allRequests'],
 
   methods: {
-    done: function (par) {
-      par.status = true;
+    Approve: function (rq) {
+       new MQL()
+        .setActivity('o.[UpdateCarRequest]')
+        .setData({
+          "id":rq._id,
+          "empName":rq.empName,
+          "desination":rq.desination,
+          "halt":rq.halt,
+          "passengers":rq.passengers,
+          "phone":rq.phone,
+          "pickup":rq.pickup,
+          "programName":rq.programName,
+          "remarks":rq.remarks,
+          "travelDate":rq.travelDate,
+          "status":"approved"
+
+        })
+        .fetch()
+        .then(rs => {
+          let res = rs.getActivity('UpdateCarRequest', true)
+          this.allRequests=res
+        })
     },
+    Reject: function(rq){
+        new MQL()
+        .setActivity('o.[DeleteCarRequest]')
+        .setData(
+         {
+           "_id":rq._id
+         }
+        )
+        .fetch()
+        .then(rs => {
+          let res = rs.getActivity('DeleteCarRequest', true)
+          // this.allRequests=res
+          this.$emit("delete-request", rq._id)
+        })
+      
+    }
   },
   computed: {
     infone: function () {
-      console.log(this.requests);
-      return this.requests.filter((i) => i.status == false);
-    },
-  },
-};
+      console.log(this.allRequests)
+      return this.allRequests.filter((i) => i.status == false)
+    }
+  }
+}
 </script>
 
 <style scoped>
 table {
   width: 100%;
+}
+.noneLeft{
+  color:red;
 }
 thead {
   color: white;

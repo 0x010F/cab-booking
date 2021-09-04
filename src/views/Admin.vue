@@ -1,66 +1,56 @@
 <template>
   <div>
-    <PendingTable :requests="cablistp"></PendingTable>
-    <ApprovedTable :requests="cablistp"></ApprovedTable>
+    <PendingTable :allRequests="requests" @delete-request="deleteRequest" />
+    <ApprovedTable :allRequests="requests" @update-request="updateRequest" />
   </div>
 </template>
 
 <script>
-import PendingTable from "@/components/PendingTable.vue";
-import ApprovedTable from "@/components/ApprovedTable.vue";
+import PendingTable from '@/components/PendingTable.vue'
+import ApprovedTable from '@/components/ApprovedTable.vue'
+import MQL from '@/plugins/mql.js'
+
 export default {
-  name: "Admin",
-  data() {
+  name: 'Admin',
+  data  () {
     return {
-      cablistp: [
-        {
-          name: "Nachiket Digha",
-          dest: "Pune",
-          nump: 3,
-          date: "02-09-2021",
-          status: false,
-          reqId: 1,
-        },
-        {
-          name: "Arjun Odedra",
-          dest: "Mumbai",
-          nump: 4,
-          date: "04-09-2021",
-          status: false,
-          reqId: 2,
-        },
-        {
-          name: "Surmdra Rajput",
-          dest: "Mumbai",
-          nump: 5,
-          date: "02-10-2021",
-          status: false,
-          reqId: 3,
-        },
-        {
-          name: "Nachiket Digha",
-          dest: "Pune m",
-          nump: 6,
-          date: "03-08-2021",
-          status: false,
-          reqId: 4,
-        },
-        {
-          name: "Omkar Chorghe",
-          dest: "Pune k",
-          nump: 1,
-          date: "01-09-2021",
-          status: false,
-          reqId: 5,
-        },
-      ],
-    };
+      requests: []
+  }
   },
   components: {
     PendingTable,
-    ApprovedTable,
+    ApprovedTable
   },
-};
+  mounted () {
+     this.GetAllRequests()
+    // console.log('INSIDE ADMIn mounted ')
+    setInterval(() => {
+     this.GetAllRequests()
+    }, 2000)
+    // console.log(this.requests)
+  },
+  methods: {
+    GetAllRequests () {
+      new MQL()
+        .setActivity('o.[query_1xcneJEpSxA9KstRDqN9frcAIbJ]')
+        .setData({
+          fetchId: '1xcneJEpSxA9KstRDqN9frcAIbJ'
+        })
+        .enablePageLoader(false)
+        .fetch()
+        .then(rs => {
+          let res = rs.getActivity('query_1xcneJEpSxA9KstRDqN9frcAIbJ', true)
+          this.requests=res
+        })
+    },
+    deleteRequest(id) {
+      this.requests = this.requests.filter(r => r._id !== id)
+    },
+     updateRequest(id) {
+      this.requests = this.requests.filter(r => r._id !== id)
+    }
+  }
+}
 </script>
 
 <style>
