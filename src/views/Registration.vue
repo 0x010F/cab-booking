@@ -200,7 +200,7 @@ export default {
           destination: this.cabDetails.destinationAddress,
           remarks: this.cabDetails.remarks,
           halt: this.cabDetails.halt,
-          status: "false",
+          status: "pending",
         })
 
         .enablePageLoader(true)
