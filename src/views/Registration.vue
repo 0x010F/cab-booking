@@ -1,5 +1,5 @@
 <template>
-  <div class="main-form p-5">
+  <div class="main-form ">
     <div class="d-flex justify-content-between align-items-center">
       <h1>Online Cab Request</h1>
       <div class="col-lg-6 car">
@@ -64,23 +64,21 @@
       <div class="col-12 col-md-6">
         <b-form-textarea
           id="details-source-address"
-          rows="2"
+          rows="3"
           v-model="cabDetails.sourceAddress"
           placeholder="First Address for pickup"
         />
 
         <b-form-textarea
           id="details-destination-address"
-          rows="2"
+          rows="3"
           v-model="cabDetails.destinationAddress"
           placeholder="Destination Address"
         >
         </b-form-textarea>
-      </div>
 
-      <div class="col-12 col-md-6 col-lg-6">
         <b-form-textarea
-          class="m-0 w-100"
+          class="m-0 "
           id="details-remarks"
           v-model="cabDetails.remarks"
           placeholder="Remark if any"
@@ -91,8 +89,10 @@
           class="m-1"
           style="color: black"
           >Halt? (if any)</b-form-checkbox
-        >
+        >    
       </div>
+
+      
 
       <div class="col-12 d-flex justify-content-center">
         <b-button class="mt-3 btn-lg btn-danger" type="submit" variant="primary"
@@ -200,6 +200,7 @@ export default {
 </script>
 
 <style>
+
 .row {
   margin: 0;
 }
