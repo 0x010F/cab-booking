@@ -41,7 +41,7 @@
           required
         />
         <!-- <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
-        <input type="date" class="form-control" id="date" name="Date" />
+        <input type="date" class="form-control" id="date" name="Date" v-model="cabDetails.date" />
 
         <b-form-select
           class="form-control"
