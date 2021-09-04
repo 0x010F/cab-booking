@@ -1,6 +1,14 @@
 <template>
-  <div class="main-form">
-    <h1>Online Cab Request</h1>
+  <div class="main-form p-5">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>Online Cab Request</h1>
+      <div class="col-lg-6 car">
+        <img
+          src="https://static.toyotabharat.com/images/showroom/innova-mmc/car-01-1600x900.png"
+          alt="Car"
+        />
+      </div>
+    </div>
     <b-form class="row my-2" @submit.prevent="submitForm">
       <div class="col-12 col-md-6">
         <b-form-input
@@ -32,19 +40,8 @@
           placeholder="Enter your phone number"
           required
         />
-        <!-- 
-        <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
-<<<<<<< HEAD
-        <input type="date" class="form-control" id="date" name="Date" >
-=======
-        <input
-          type="date"
-          class="form-control"
-          id="birthday"
-          name="birthday"
-          v-model="cabDetails.date"
-        />
->>>>>>> e9cdaa1bffc768f0b1088ad1d661cfa07f4fd9ef
+        <!-- <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
+        <input type="date" class="form-control" id="date" name="Date" />
 
         <b-form-select
           class="form-control"
@@ -52,7 +49,8 @@
           v-model="employee.programName"
           :options="PROGRAM_NAMES"
           placeholder="Program name"
-        >Program name</b-form-select>
+          >Program name</b-form-select
+        >
 
         <b-form-input
           id="details-total"
@@ -66,49 +64,38 @@
       <div class="col-12 col-md-6">
         <b-form-textarea
           id="details-source-address"
+          rows="2"
           v-model="cabDetails.sourceAddress"
           placeholder="First Address for pickup"
         />
 
         <b-form-textarea
           id="details-destination-address"
+          rows="2"
           v-model="cabDetails.destinationAddress"
           placeholder="Destination Address"
         >
         </b-form-textarea>
       </div>
 
-<<<<<<< HEAD
-        <div class="row">
-        <div class="col-12 col-md-6 col-lg-6">
-=======
       <div class="col-12 col-md-6 col-lg-6">
->>>>>>> e9cdaa1bffc768f0b1088ad1d661cfa07f4fd9ef
         <b-form-textarea
-          class="m-0"
+          class="m-0 w-100"
           id="details-remarks"
           v-model="cabDetails.remarks"
           placeholder="Remark if any"
         />
-<<<<<<< HEAD
-        <b-form-checkbox id="details-halt" v-model="cabDetails.halt" class="m-1" style="color:black"
-          >Halt? (if any)</b-form-checkbox>
-        </div>
-        <div class=" col-lg-6"><img class="car" src="https://static.toyotabharat.com/images/showroom/innova-mmc/car-01-1600x900.png" alt="Car" ></div>
-        </div>
-
-      <div class="col-12  d-flex justify-content-center ">
-        <b-button class="mt-3 btn-lg btn-danger" type="submit" variant="primary"
-=======
-
-        <b-form-checkbox id="details-halt" v-model="cabDetails.halt" class="m-1"
+        <b-form-checkbox
+          id="details-halt"
+          v-model="cabDetails.halt"
+          class="m-1"
+          style="color: black"
           >Halt? (if any)</b-form-checkbox
         >
       </div>
 
       <div class="col-12 d-flex justify-content-center">
-        <b-button class="mt-3" type="submit" id="a11" variant="primary"
->>>>>>> e9cdaa1bffc768f0b1088ad1d661cfa07f4fd9ef
+        <b-button class="mt-3 btn-lg btn-danger" type="submit" variant="primary"
           >Submit</b-button
         >
       </div>
@@ -205,19 +192,18 @@ export default {
           splitName[0].toLowerCase() +
           splitName[1].charAt(0).toLowerCase() +
           "@mkcl.org"
-        )
+        );
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
-.row{
+.row {
   margin: 0;
 }
-.car{
-  margin-top: -120px;
+.car {
   width: 100%;
   height: auto;
 }
@@ -228,7 +214,7 @@ export default {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
-h1{
+h1 {
   color: rgb(34, 34, 34);
   font-weight: bold;
 }
@@ -236,11 +222,11 @@ h1{
   margin: 1rem 0;
   background-color: rgb(22, 22, 22);
 }
-.form-control:focus{
-  border-color:black;
+.form-control:focus {
+  border-color: black;
   box-shadow: none;
 }
-::placeholder{
+::placeholder {
   color: white;
   opacity: 1;
 }
@@ -248,17 +234,16 @@ h1{
   margin: 0 !important;
   border: none;
 }
-.main-form {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.car img {
+  width: 100%;
+  height: auto;
 }
 @media screen and (max-width: 720px) {
-  .car{
-    visibility: hidden;
+  .car {
+    /* visibility: hidden; */
+    display: none;
   }
-  h1{
+  h1 {
     font-size: 2rem;
     font-weight: bold;
   }

@@ -1,15 +1,8 @@
 <template>
   <div>
-<<<<<<< HEAD
-      <PendingTable :requests="cablistp"></PendingTable>
-            <ApprovedTable :requests="cablistp"></ApprovedTable>
-    </div>
-=======
-    This isAdmin Page
     <PendingTable :requests="cablistp"></PendingTable>
     <ApprovedTable :requests="cablistp"></ApprovedTable>
   </div>
->>>>>>> e9cdaa1bffc768f0b1088ad1d661cfa07f4fd9ef
 </template>
 
 <script>
