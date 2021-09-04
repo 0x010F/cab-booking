@@ -9,7 +9,17 @@
         />
       </div>
     </div>
+    <b-toaster
+      name="b-toaster-top-right"
+      class="position-absolute"
+      style="top: 4px; right: 4px;"
+    />
     <b-form class="row my-2" @submit.prevent="submitForm">
+      <div class="col-12">
+        <b-alert show variant="danger" dismissible v-if="error !== null">{{
+          error
+        }}</b-alert>
+      </div>
       <div class="col-12 col-md-6">
         <b-form-input
           id="employee-name"
@@ -41,7 +51,14 @@
           required
         />
         <!-- <b-form-datepicker class="d-flex align-items-center" id="details-date" v-model="cabDetails.date" /> -->
-        <input type="date" class="form-control" id="date" name="Date" />
+        <input
+          type="date"
+          class="form-control"
+          id="date"
+          name="Date"
+          :min="minDate"
+          v-model="cabDetails.date"
+        />
 
         <b-form-select
           class="form-control"
@@ -49,6 +66,7 @@
           v-model="employee.programName"
           :options="PROGRAM_NAMES"
           placeholder="Program name"
+          required
           >Program name</b-form-select
         >
 
@@ -74,6 +92,7 @@
           rows="2"
           v-model="cabDetails.destinationAddress"
           placeholder="Destination Address"
+          required
         >
         </b-form-textarea>
       </div>
@@ -114,7 +133,10 @@ import {
   BFormSelect,
   BFormTextarea,
   BFormCheckbox,
+  BAlert,
+  BToaster,
 } from "bootstrap-vue";
+import { validateRequestForm } from "../validators";
 
 Vue.prototype.PROGRAM_NAMES = ["PRONEXT", "DNEXT"];
 
@@ -128,8 +150,13 @@ export default {
     "b-form-select": BFormSelect,
     "b-form-textarea": BFormTextarea,
     "b-form-checkbox": BFormCheckbox,
+    "b-alert": BAlert,
+    "b-toaster": BToaster,
   },
   data: function () {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
     return {
       employee: {
         name: "",
@@ -145,6 +172,8 @@ export default {
         remarks: "",
         halt: false,
       },
+      error: null,
+      minDate: today,
     };
   },
   methods: {
@@ -152,6 +181,15 @@ export default {
       this.employee.email = this.suggestedEmail;
     },
     submitForm() {
+      this.error = validateRequestForm({
+        ...this.employee,
+        ...this.cabDetails,
+      });
+      if (this.error) {
+        console.log(this.error);
+        return;
+      }
+
       new MQL()
         .setActivity("o.[CreateCarRequest]")
         .setData({
@@ -174,6 +212,14 @@ export default {
           console.log(res);
           // let r = res.getRaw(true)
           console.log(res.isValid());
+          this.$bvToast.toast(`Your request was submitted`, {
+            toaster: "b-toaster-top-right",
+            title: "Successful",
+            autoHideDelay: 2000,
+            variant: "success",
+            solid: true,
+            toastClass: "toast"
+          });
         });
     },
   },
@@ -237,6 +283,12 @@ h1 {
 .car img {
   width: 100%;
   height: auto;
+}
+.toast {
+  background-color: rgb(0, 125, 0);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
 }
 @media screen and (max-width: 720px) {
   .car {
