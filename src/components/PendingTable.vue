@@ -14,7 +14,7 @@
           <th>Approval Status</th>
         </tr>
       </thead>
-      <div v-if="infone.length === 0">
+      <div v-if="allRequests.length === 0">
         <h3 class="noneLeft">No requests pending</h3>
       </div>
       <tr  v-for="request in allRequests" :key="request._id" >

@@ -172,6 +172,7 @@ export default {
       },
       error: null,
       minDate: today,
+      halts:""
     };
   },
   methods: {
@@ -187,10 +188,15 @@ export default {
         console.log(this.error);
         return;
       }
-
-      new MQL()
-        .setActivity("o.[CreateCarRequest]")
-        .setData({
+      if (this.halt==true){
+        this.halts="YES"
+      }
+      else if(this.halt==false){
+        this.halts="NO"
+      }
+      new MQL()        
+        .setActivity("o.[CreateCarRequest, SendingTestemail]")
+        .setData("CreateCarRequest",{
           empName: this.employee.name,
           phone: this.employee.phone,
           travelDate: this.cabDetails.date,
@@ -201,6 +207,18 @@ export default {
           remarks: this.cabDetails.remarks,
           halt: this.cabDetails.halt,
           status: "pending",
+        })
+        .setData("SendingTestemail",{
+          to: "tanmaya@mkcl.org",
+          from:"MKCLCarRequestPortal@mkcl.org",
+          name:this.employee.name,
+          address:this.cabDetails.sourceAddress,
+          destination:this.cabDetails.destinationAddress,
+          count: this.cabDetails.total,
+          pickdate:this.cabDetails.date,
+          progname:this.employee.programName,
+          phone:this.employee.phone,
+          halt: this.halts
         })
 
         .enablePageLoader(true)
