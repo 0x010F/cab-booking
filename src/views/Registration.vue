@@ -6,7 +6,7 @@
         <img
           src="https://static.toyotabharat.com/images/showroom/innova-mmc/car-01-1600x900.png"
           alt="Car"
-        />
+        >
       </div>
     </div>
     <b-toaster
@@ -14,11 +14,21 @@
       class="position-absolute"
       style="top: 4px; right: 4px"
     />
-    <b-form class="row my-2" @submit.prevent="submitForm">
+    <b-form
+      class="row my-2"
+      @submit.prevent="submitForm"
+    >
       <div class="col-12">
-        <b-alert show variant="danger" dismissible v-if="error !== null">{{
-          error
-        }}</b-alert>
+        <b-alert
+          show
+          variant="danger"
+          dismissible
+          v-if="error !== null"
+        >
+          {{
+            error
+          }}
+        </b-alert>
       </div>
       <div class="col-12 col-md-6">
         <b-form-input
@@ -58,7 +68,7 @@
           name="Date"
           :min="minDate"
           v-model="cabDetails.date"
-        />
+        >
 
         <b-form-select
           class="form-control"
@@ -67,8 +77,9 @@
           :options="PROGRAM_NAMES"
           placeholder="Program name"
           required
-          >Program name</b-form-select
         >
+          Program name
+        </b-form-select>
 
         <b-form-input
           id="details-total"
@@ -93,8 +104,7 @@
           v-model="cabDetails.destinationAddress"
           placeholder="Destination Address"
           required
-        >
-        </b-form-textarea>
+        />
 
         <b-form-textarea
           class="m-0"
@@ -107,22 +117,27 @@
           v-model="cabDetails.halt"
           class="m-1"
           style="color: black"
-          >Halt? (if any)</b-form-checkbox
         >
+          Halt? (if any)
+        </b-form-checkbox>
       </div>
 
       <div class="col-12 d-flex justify-content-center">
-        <b-button class="mt-3 btn-lg btn-danger" type="submit" variant="primary"
-          >Submit</b-button
+        <b-button
+          class="mt-3 btn-lg btn-danger"
+          type="submit"
+          variant="primary"
         >
+          Submit
+        </b-button>
       </div>
     </b-form>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import MQL from "@/plugins/mql";
+import Vue from 'vue'
+import MQL from '@/plugins/mql'
 import {
   BForm,
   BFormGroup,
@@ -132,71 +147,70 @@ import {
   BFormTextarea,
   BFormCheckbox,
   BAlert,
-  BToaster,
-} from "bootstrap-vue";
-import { validateRequestForm } from "../validators";
+  BToaster
+} from 'bootstrap-vue'
+import { validateRequestForm } from '../validators'
 
-Vue.prototype.PROGRAM_NAMES = ["PRONEXT", "DNEXT"];
+Vue.prototype.PROGRAM_NAMES = ['PRONEXT', 'DNEXT']
 
 export default {
-  name: "RequestForm",
+  name: 'RequestForm',
   components: {
-    "b-form": BForm,
-    "b-form-group": BFormGroup,
-    "b-form-input": BFormInput,
-    "b-form-datepicker": BFormDatepicker,
-    "b-form-select": BFormSelect,
-    "b-form-textarea": BFormTextarea,
-    "b-form-checkbox": BFormCheckbox,
-    "b-alert": BAlert,
-    "b-toaster": BToaster,
+    'b-form': BForm,
+    'b-form-group': BFormGroup,
+    'b-form-input': BFormInput,
+    'b-form-datepicker': BFormDatepicker,
+    'b-form-select': BFormSelect,
+    'b-form-textarea': BFormTextarea,
+    'b-form-checkbox': BFormCheckbox,
+    'b-alert': BAlert,
+    'b-toaster': BToaster
   },
   data: function () {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 
     return {
       employee: {
-        name: "",
-        email: "",
-        phone: "",
-        programName: null,
+        name: '',
+        email: '',
+        phone: '',
+        programName: null
       },
       cabDetails: {
-        date: "",
+        date: '',
         total: 1,
-        sourceAddress: "",
-        destinationAddress: "",
-        remarks: "",
-        halt: false,
+        sourceAddress: '',
+        destinationAddress: '',
+        remarks: '',
+        halt: false
       },
       error: null,
       minDate: today,
-      halts:""
-    };
+      halts: ''
+    }
   },
   methods: {
-    addSuggestedEmail() {
-      this.employee.email = this.suggestedEmail;
+    addSuggestedEmail () {
+      this.employee.email = this.suggestedEmail
     },
-    submitForm() {
+    submitForm () {
       this.error = validateRequestForm({
         ...this.employee,
-        ...this.cabDetails,
-      });
+        ...this.cabDetails
+      })
       if (this.error) {
-        console.log(this.error);
-        return;
+        console.log(this.error)
+        return
       }
-      if (this.halt==true){
-        this.halts="YES"
+      if (this.halt == true) {
+        this.halts = 'YES'
+      } else if (this.halt == false) {
+        this.halts = 'NO'
       }
-      else if(this.halt==false){
-        this.halts="NO"
-      }
-      new MQL()        
-        .setActivity("o.[CreateCarRequest, SendingTestemail]")
-        .setData("CreateCarRequest",{
+      new MQL()
+        .setActivity('o.[CreateCarRequest, SendingTestemail]')
+        .setData('CreateCarRequest', {
           empName: this.employee.name,
           phone: this.employee.phone,
           travelDate: this.cabDetails.date,
@@ -206,59 +220,59 @@ export default {
           destination: this.cabDetails.destinationAddress,
           remarks: this.cabDetails.remarks,
           halt: this.cabDetails.halt,
-          status: "pending",
+          status: 'pending'
         })
-        .setData("SendingTestemail",{
-          to: "tanmaya@mkcl.org",
-          from:"MKCLCarRequestPortal@mkcl.org",
-          name:this.employee.name,
-          address:this.cabDetails.sourceAddress,
-          destination:this.cabDetails.destinationAddress,
+        .setData('SendingTestemail', {
+          to: 'tanmaya@mkcl.org',
+          from: 'MKCLCarRequestPortal@mkcl.org',
+          name: this.employee.name,
+          address: this.cabDetails.sourceAddress,
+          destination: this.cabDetails.destinationAddress,
           count: this.cabDetails.total,
-          pickdate:this.cabDetails.date,
-          progname:this.employee.programName,
-          phone:this.employee.phone,
+          pickdate: this.cabDetails.date,
+          progname: this.employee.programName,
+          phone: this.employee.phone,
           halt: this.halts
         })
 
         .enablePageLoader(true)
         .showConfirmDialog(true)
-        .fetch("a11")
+        .fetch('a11')
         .then((res) => {
-          console.log(res);
+          console.log(res)
           // let r = res.getRaw(true)
-          console.log(res.isValid());
+          console.log(res.isValid())
           this.$bvToast.toast(`Your request was submitted`, {
-            toaster: "b-toaster-top-right",
-            title: "Successful",
+            toaster: 'b-toaster-top-right',
+            title: 'Successful',
             autoHideDelay: 2000,
-            variant: "success",
+            variant: 'success',
             solid: true,
-            toastClass: "toast",
-          });
-        });
-    },
+            toastClass: 'toast'
+          })
+        })
+    }
   },
 
   computed: {
     suggestedEmail: function () {
-      let splitName = this.employee.name.trim().split(" ");
-      splitName = splitName.filter((s) => s.trim());
+      let splitName = this.employee.name.trim().split(' ')
+      splitName = splitName.filter((s) => s.trim())
 
       if (splitName.length == 0) {
-        return "";
+        return ''
       } else if (splitName.length == 1) {
-        return splitName[0].toLowerCase() + "@mkcl.org";
+        return splitName[0].toLowerCase() + '@mkcl.org'
       } else {
         return (
           splitName[0].toLowerCase() +
           splitName[1].charAt(0).toLowerCase() +
-          "@mkcl.org"
-        );
+          '@mkcl.org'
+        )
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style>

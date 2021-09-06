@@ -1,11 +1,17 @@
 <template>
   <div id="app">
-    <div id="app-loader" v-if="$store.getters.isPageBlocked">
-      <img src="../public/assets/tail-spin.svg" alt="loader" />
+    <div
+      id="app-loader"
+      v-if="$store.getters.isPageBlocked"
+    >
+      <img
+        src="../public/assets/tail-spin.svg"
+        alt="loader"
+      >
     </div>
 
     <div class="wrapper">
-      <sidebar></sidebar>
+      <sidebar />
       <div class="column column2">
         <router-view :key="$route.fullPath" />
       </div>
@@ -14,23 +20,23 @@
 </template>
 
 <script>
-import Sidebar from "@/components/common/Sidebar";
+import Sidebar from '@/components/common/Sidebar'
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    Sidebar,
+    Sidebar
   },
   metaInfo: {
     meta: [
       {
-        vmid: "description",
-        name: "description",
-        content: "Test title",
-        template: (chunk) => `${chunk} - FullStack`,
-      },
-    ],
-  },
-};
+        vmid: 'description',
+        name: 'description',
+        content: 'Test title',
+        template: (chunk) => `${chunk} - FullStack`
+      }
+    ]
+  }
+}
 </script>
 
 <style lang="scss">

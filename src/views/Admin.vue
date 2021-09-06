@@ -1,7 +1,13 @@
 <template>
   <div>
-    <PendingTable :allRequests="requests" @delete-request="deleteRequest" />
-    <ApprovedTable :allRequests="requests" @update-request="updateRequest" />
+    <PendingTable
+      :all-requests="requests"
+      @delete-request="deleteRequest"
+    />
+    <ApprovedTable
+      :all-requests="requests"
+      @update-request="updateRequest"
+    />
   </div>
 </template>
 
@@ -15,17 +21,17 @@ export default {
   data  () {
     return {
       requests: []
-  }
+    }
   },
   components: {
     PendingTable,
     ApprovedTable
   },
   mounted () {
-     this.GetAllRequests()
+    this.GetAllRequests()
     // console.log('INSIDE ADMIn mounted ')
     setInterval(() => {
-     this.GetAllRequests()
+      this.GetAllRequests()
     }, 2000)
     // console.log(this.requests)
   },
@@ -40,13 +46,13 @@ export default {
         .fetch()
         .then(rs => {
           let res = rs.getActivity('query_1xcneJEpSxA9KstRDqN9frcAIbJ', true)
-          this.requests=res
+          this.requests = res
         })
     },
-    deleteRequest(id) {
+    deleteRequest (id) {
       this.requests = this.requests.filter(r => r._id !== id)
     },
-     updateRequest(id) {
+    updateRequest (id) {
       this.requests = this.requests.filter(r => r._id !== id)
     }
   }

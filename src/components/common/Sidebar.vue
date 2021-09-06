@@ -1,7 +1,13 @@
 <template>
-  <div id="sidebar" :class="{ active: isActive }">
+  <div
+    id="sidebar"
+    :class="{ active: isActive }"
+  >
     <div class="sidebar-header">
-      <img src="../../assets/logo_mkcl_w.svg" class="logo" />
+      <img
+        src="../../assets/logo_mkcl_w.svg"
+        class="logo"
+      >
     </div>
 
     <div class="custom-menu">
@@ -11,12 +17,12 @@
         class="btn btn-primary"
         @click="toggleSideBar()"
       >
-        <i class="mdi mdi-menu"></i>
+        <i class="mdi mdi-menu" />
         <span class="sr-only">Toggle Menu</span>
       </button>
     </div>
 
-    <div v-bar>  
+    <div v-bar>
       <div class="sidebar-vbar">
         <ul>
           <!-- <template v-for="(page, i) in this.$router.options.routes">
@@ -29,33 +35,36 @@
           </template> -->
 
           <li>
-            <router-link to="/login"><i class="mdi mdi-account sidebar-icon"></i>Login</router-link>
+            <router-link to="/login">
+              <i class="mdi mdi-account sidebar-icon" />Login
+            </router-link>
           </li>
 
-           <li>
-            <router-link to="/registration"><i class="mdi mdi-account-edit sidebar-icon"></i>Registration</router-link>
+          <li>
+            <router-link to="/registration">
+              <i class="mdi mdi-account-edit sidebar-icon" />Registration
+            </router-link>
           </li>
-
         </ul>
-      </div>     
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Sidebar",
-  data: function() {
+  name: 'Sidebar',
+  data: function () {
     return {
       isActive: false
-    };
+    }
   },
   methods: {
-    toggleSideBar() {
-      this.isActive = !this.isActive;
+    toggleSideBar () {
+      this.isActive = !this.isActive
     }
   }
-};
+}
 </script>
 
 <style></style>

@@ -1,10 +1,10 @@
-export function validateRequestForm({
+export function validateRequestForm ({
   name,
   phone,
   programName,
   date,
   sourceAddress,
-  destinationAddress,
+  destinationAddress
 }) {
   if (
     !name.trim() ||
@@ -14,9 +14,9 @@ export function validateRequestForm({
     !sourceAddress.trim() ||
     !destinationAddress.trim()
   ) {
-    return "Please fill all the fields";
+    return 'Please fill all the fields'
   } else if (phone.length !== 10 || phone.match(/[a - z]/)) {
-    return "Invalid Phone Number";
+    return 'Invalid Phone Number'
   }
-  return null;
+  return null
 }

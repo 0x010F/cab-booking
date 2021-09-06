@@ -15,35 +15,37 @@
         </tr>
       </thead>
       <div v-if="allRequests.length === 0">
-        <h3 class="noneLeft">No requests pending</h3>
+        <h3 class="noneLeft">
+          No requests pending
+        </h3>
       </div>
-      <tr  v-for="request in allRequests" :key="request._id" >
+      <tr
+        v-for="request in allRequests"
+        :key="request._id"
+      >
+        <template v-if="request.status === 'pending'">
+          <td>{{ request.empName }}</td>
+          <td>{{ request.destination }}</td>
+          <td>{{ request.passengers }}</td>
+          <td>{{ request.travelDate }}</td>
+          <td>{{ request.status }}</td>
 
-      <template v-if="request.status === 'pending'">
-
-        <td>{{ request.empName }}</td>
-        <td>{{ request.destination }}</td>
-        <td>{{ request.passengers }}</td>
-        <td>{{ request.travelDate }}</td>
-         <td>{{ request.status }}</td>
-
-        <td class="text-center">
-          <button
-            class="btn btn-success mx-1"
-            @click="Approve(request)"
-          >
-            Approve
-          </button>
-          <button
-            class="btn btn-danger mx-1"
-            @click="Reject(request)"
-          >
-            Reject
-          </button>
-        </td>
-             </template>
-
-     </tr>
+          <td class="text-center">
+            <button
+              class="btn btn-success mx-1"
+              @click="Approve(request)"
+            >
+              Approve
+            </button>
+            <button
+              class="btn btn-danger mx-1"
+              @click="Reject(request)"
+            >
+              Reject
+            </button>
+          </td>
+        </template>
+      </tr>
     </table>
   </div>
 </template>
@@ -57,43 +59,42 @@ export default {
 
   methods: {
     Approve: function (rq) {
-       new MQL()
+      new MQL()
         .setActivity('o.[UpdateCarRequest]')
         .setData({
-          "id":rq._id,
-          "empName":rq.empName,
-          "desination":rq.desination,
-          "halt":rq.halt,
-          "passengers":rq.passengers,
-          "phone":rq.phone,
-          "pickup":rq.pickup,
-          "programName":rq.programName,
-          "remarks":rq.remarks,
-          "travelDate":rq.travelDate,
-          "status":"approved"
+          'id': rq._id,
+          'empName': rq.empName,
+          'desination': rq.desination,
+          'halt': rq.halt,
+          'passengers': rq.passengers,
+          'phone': rq.phone,
+          'pickup': rq.pickup,
+          'programName': rq.programName,
+          'remarks': rq.remarks,
+          'travelDate': rq.travelDate,
+          'status': 'approved'
 
         })
         .fetch()
         .then(rs => {
           let res = rs.getActivity('UpdateCarRequest', true)
-          this.allRequests=res
+          this.allRequests = res
         })
     },
-    Reject: function(rq){
-        new MQL()
+    Reject: function (rq) {
+      new MQL()
         .setActivity('o.[DeleteCarRequest]')
         .setData(
-         {
-           "_id":rq._id
-         }
+          {
+            '_id': rq._id
+          }
         )
         .fetch()
         .then(rs => {
           let res = rs.getActivity('DeleteCarRequest', true)
           // this.allRequests=res
-          this.$emit("delete-request", rq._id)
+          this.$emit('delete-request', rq._id)
         })
-      
     }
   },
   computed: {

@@ -12,18 +12,20 @@
         </tr>
       </thead>
 
-      <tr  v-for="requests in allRequests" :key="requests.reqId" >
-              <template v-if="requests.status === 'approved'">
-
-         <td>{{ requests.empName }}</td>
-        <td>{{ requests.destination }}</td>
-        <td>{{ requests.passengers }}</td>
-        <td>{{ requests.travelDate }}</td>
-        <td class="text-center">
-          <button class="btn btn-success">
-            Booked
-          </button>
-        </td>
+      <tr
+        v-for="requests in allRequests"
+        :key="requests.reqId"
+      >
+        <template v-if="requests.status === 'approved'">
+          <td>{{ requests.empName }}</td>
+          <td>{{ requests.destination }}</td>
+          <td>{{ requests.passengers }}</td>
+          <td>{{ requests.travelDate }}</td>
+          <td class="text-center">
+            <button class="btn btn-success">
+              Booked
+            </button>
+          </td>
         </template>
       </tr>
     </table>
@@ -39,11 +41,11 @@ export default {
 
     }
   },
- 
+
   computed: {
 
     inftwo: function () {
-      return this.allRequests.filter(i => i.status == "approved")
+      return this.allRequests.filter(i => i.status == 'approved')
     }
   }
 }
