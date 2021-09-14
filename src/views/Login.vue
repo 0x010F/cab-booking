@@ -18,24 +18,18 @@
                 id="emailId"
                 for="email"
               >
-                Email address
+                UserName
               </label>
               <input
                 v-model="username"
                 id="email"
-                type="email"
+                type="text"
                 name="email"
                 class="form-control"
                 aria-describedby="emailHelp"
-                placeholder="Enter email"
+                placeholder="Enter username"
                 style="background-color:white"
-              >
-              <small
-                id="emailHelp"
-                class="form-text text-muted"
-              >
-                We'll never share your email with anyone else.
-              </small>
+              >             
             </div>
             <div class="form-group">
               <label for="password">
@@ -45,10 +39,7 @@
                 v-model="password"
                 type="password"
                 name="password"
-                class="form-control"
-                @focus="showPassInfo = true"
-                id="password"
-                @blur="showPassInfo = false"
+                class="form-control"              
                 placeholder="Password"
                 style="background-color:white"
               >
@@ -62,62 +53,7 @@
                 @click="authenticate()"
               >
                 Submit
-              </button>
-              <button
-                type="button"
-                name="btnlogin"
-                class="btn btn-info px-4"
-                @click="show()"
-              >
-                Show
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="aro-pswd_info">
-            <div
-              v-show="showPassInfo"
-              id="pswd_info"
-            >
-              <h4>Password must be requirements</h4>
-              <ul>
-                <li
-                  id="letter"
-                  class="invalid"
-                >
-                  At least
-                  <strong>one letter</strong>
-                </li>
-                <li
-                  id="capital"
-                  class="invalid"
-                >
-                  At least
-                  <strong>one capital letter</strong>
-                </li>
-                <li
-                  id="number"
-                  class="invalid"
-                >
-                  At least
-                  <strong>one number</strong>
-                </li>
-                <li
-                  id="length"
-                  class="invalid"
-                >
-                  Be at least
-                  <strong>8 characters</strong>
-                </li>
-                <li
-                  id="space"
-                  class="invalid"
-                >
-                  be
-                  <strong> use [~,!,@,#,$,%,^,&,*,-,=,.,;,']</strong>
-                </li>
-              </ul>
+              </button>             
             </div>
           </div>
         </div>
@@ -143,9 +79,14 @@ export default {
       r.showElement('loginFormId')
     },
     authenticate () {
-      this.$store.dispatch('AUTH_REQUEST', { loginId: this.username, password: this.password }).then(res => {
+      this.$store.dispatch('AUTH_REQUEST', { username: this.username, password: this.password }).then(res => {
         // Redirect to next page after suucessfull login
-        alert('Login : ' + res.isValid('MQLLogin'))
+        if (res.isValid('LoginAuth')){
+          this.$router.push({name:'admin'})
+        }
+        else{
+          alert('Login : ' + res.isValid('LoginAuth'))
+        }
       })
         .catch(err => {
           alert(err)
@@ -165,63 +106,7 @@ export default {
       //     // Do in case of error
       //     Vue.error(error);
       //   });
-    },
-    validatePassword () {
-      // validate password length
-      if (this.password.length < 8) {
-        let showLengthMsg = document.getElementById('length')
-        showLengthMsg.classList.remove('valid')
-        showLengthMsg.classList.add('invalid')
-      } else {
-        let showLengthMsg = document.getElementById('length')
-        showLengthMsg.classList.remove('invalid')
-        showLengthMsg.classList.add('valid')
-      }
-
-      // validate letter
-      if (this.password.match(/[A-z]/)) {
-        let showLengthMsg = document.getElementById('letter')
-        showLengthMsg.classList.remove('invalid')
-        showLengthMsg.classList.add('valid')
-      } else {
-        let showLengthMsg = document.getElementById('letter')
-        showLengthMsg.classList.remove('valid')
-        showLengthMsg.classList.add('invalid')
-      }
-
-      // validate capital letter
-      if (this.password.match(/[A-Z]/)) {
-        let showLengthMsg = document.getElementById('capital')
-        showLengthMsg.classList.remove('invalid')
-        showLengthMsg.classList.add('valid')
-      } else {
-        let showLengthMsg = document.getElementById('capital')
-        showLengthMsg.classList.remove('valid')
-        showLengthMsg.classList.add('invalid')
-      }
-
-      // validate number
-      if (this.password.match(/\d/)) {
-        let showLengthMsg = document.getElementById('number')
-        showLengthMsg.classList.remove('invalid')
-        showLengthMsg.classList.add('valid')
-      } else {
-        let showLengthMsg = document.getElementById('number')
-        showLengthMsg.classList.remove('valid')
-        showLengthMsg.classList.add('invalid')
-      }
-
-      // validate space
-      if (this.password.match(/[^a-zA-Z0-9\-/]/)) {
-        let showLengthMsg = document.getElementById('space')
-        showLengthMsg.classList.remove('invalid')
-        showLengthMsg.classList.add('valid')
-      } else {
-        let showLengthMsg = document.getElementById('space')
-        showLengthMsg.classList.remove('valid')
-        showLengthMsg.classList.add('invalid')
-      }
-    }
+    },  
   }
 }
 </script>

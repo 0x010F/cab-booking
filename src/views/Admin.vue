@@ -8,6 +8,7 @@
       :all-requests="requests"
       @update-request="updateRequest"
     />
+    <button @click="logout">Logout</button>
   </div>
 </template>
 
@@ -54,6 +55,9 @@ export default {
     },
     updateRequest (id) {
       this.requests = this.requests.filter(r => r._id !== id)
+    },
+    logout () {
+      this.$store.dispatch('AUTH_LOGOUT')
     }
   }
 }

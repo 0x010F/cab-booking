@@ -193,7 +193,7 @@ class MQL {
       return this
     }
     this.setLoginActivity = function () {
-      this.setActivity('o.[MQLLogin]')
+      this.setActivity('o.[LoginAuth]')
       // this.setCustomURL('/o/mql/login')
       // this.activityType = ''
       // this.mqlString = ''

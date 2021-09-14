@@ -39,8 +39,8 @@ export const actions = {
       // .showConfirmDialog(true)
         .fetch('loginBtn')
         .then((response) => {
-          response.hideElement('loginFormId')
-          if (response.isValid('MQLLogin')) {
+          // response.hideElement('loginFormId')
+          if (response.isValid('LoginAuth')) {
             let token = response.getHeaders().authorization
             sessionStorage.setItem('user-token', token)
             commit(types.MUTATE_AUTH_SUCCESS, response)
