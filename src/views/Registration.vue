@@ -296,14 +296,14 @@ h1 {
 }
 .form-control {
   margin: 1rem 0;
-  background-color: rgb(22, 22, 22);
+  background-color: rgb(206, 206, 206);
 }
 .form-control:focus {
   border-color: black;
   box-shadow: none;
 }
 ::placeholder {
-  color: white;
+  color: rgb(255, 255, 255);
   opacity: 1;
 }
 #details-date__value_ {
