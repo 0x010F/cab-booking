@@ -1,14 +1,16 @@
 <template>
   <div>
+    <button class="logout btn btn-danger m-3" @click="logout">Logout</button>
     <PendingTable
       :all-requests="requests"
+      @set-requests="setRequests"
       @delete-request="deleteRequest"
     />
     <ApprovedTable
       :all-requests="requests"
+      @set-requests="setRequests"
       @update-request="updateRequest"
     />
-    <button @click="logout">Logout</button>
   </div>
 </template>
 
@@ -31,9 +33,9 @@ export default {
   mounted () {
     this.GetAllRequests()
     // console.log('INSIDE ADMIn mounted ')
-    setInterval(() => {
-      this.GetAllRequests()
-    }, 2000)
+    // setInterval(() => {
+    //   this.GetAllRequests()
+    // }, 2000)
     // console.log(this.requests)
   },
   methods: {
@@ -58,6 +60,9 @@ export default {
     },
     logout () {
       this.$store.dispatch('AUTH_LOGOUT')
+    },
+    setRequests() {
+      this.GetAllRequests()
     }
   }
 }
@@ -78,5 +83,8 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+.logout{
+  float: right;
 }
 </style>

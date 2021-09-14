@@ -14,16 +14,15 @@
           <th>Approval Status</th>
         </tr>
       </thead>
-      <div v-if="allRequests.length === 0">
+      <div v-if="pendingRequests.length === 0">
         <h3 class="noneLeft">
           No requests pending
         </h3>
       </div>
       <tr
-        v-for="request in allRequests"
+        v-for="request in pendingRequests"
         :key="request._id"
       >
-        <template v-if="request.status === 'pending'">
           <td>{{ request.empName }}</td>
           <td>{{ request.destination }}</td>
           <td>{{ request.passengers }}</td>
@@ -32,19 +31,18 @@
 
           <td class="text-center">
             <button
-              class="btn btn-success mx-1"
+              class="btn btn-success m-1"
               @click="Approve(request)"
             >
               Approve
             </button>
             <button
-              class="btn btn-danger mx-1"
+              class="btn btn-danger m-1"
               @click="Reject(request)"
             >
               Reject
             </button>
           </td>
-        </template>
       </tr>
     </table>
   </div>
@@ -73,12 +71,12 @@ export default {
           'remarks': rq.remarks,
           'travelDate': rq.travelDate,
           'status': 'approved'
-
         })
         .fetch()
         .then(rs => {
-          let res = rs.getActivity('UpdateCarRequest', true)
-          this.allRequests = res
+          // let res = rs.getActivity('UpdateCarRequest', true)
+          // console.log("Response", res)
+          this.$emit("set-requests")
         })
     },
     Reject: function (rq) {
@@ -98,9 +96,8 @@ export default {
     }
   },
   computed: {
-    infone: function () {
-      console.log(this.allRequests)
-      return this.allRequests.filter((i) => i.status == false)
+    pendingRequests: function () {
+      return this.allRequests.filter(r => r.status === 'pending')
     }
   }
 }
