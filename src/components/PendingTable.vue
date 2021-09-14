@@ -14,11 +14,6 @@
           <th>Approval Status</th>
         </tr>
       </thead>
-      <div v-if="pendingRequests.length === 0">
-        <h3 class="noneLeft">
-          No requests pending
-        </h3>
-      </div>
       <tr
         v-for="request in pendingRequests"
         :key="request._id"
@@ -45,6 +40,11 @@
           </td>
       </tr>
     </table>
+    <div v-if="pendingRequests.length === 0">
+        <h3 class="noneLeft mt-2">
+          No requests pending
+        </h3>
+      </div>
   </div>
 </template>
 

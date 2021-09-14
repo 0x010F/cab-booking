@@ -2,7 +2,7 @@
   <div>
     <h3>Booked History</h3>
     <div>
-      <select v-model="filterDate" class="form-select">
+      <select v-model="filterDate" class="form-select mb-2">
         <option v-for="(month, idx) in months" :key="idx" :value="idx">
           {{ month }}
         </option>

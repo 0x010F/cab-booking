@@ -20,6 +20,8 @@ import '../public/assets/plugins/bootstrap-4.1.2-dist/css/bootstrap.min.css'
 import '../public/assets/plugins/materialdesignicons/css/materialdesignicons.min.css'
 import 'vue-select/dist/vue-select.css'
 import '../public/assets/css/template.scss'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
 const isProduction = process.env.NODE_ENV === 'production'
