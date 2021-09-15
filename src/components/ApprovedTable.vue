@@ -25,7 +25,7 @@
         <td>{{ requests.passengers }}</td>
         <td>{{ requests.travelDate }}</td>
         <td class="text-center">
-          <button class="btn btn-dark">Booked</button>
+          <button class="btn btn-dark disabled">Booked</button>
         </td>
       </tr>
     </table>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="logout btn btn-danger m-3" @click="logout">Logout</button>
+    <button class="logout btn btn-danger m-2" @click="logout">Logout</button>
     <PendingTable
       :all-requests="requests"
       @set-requests="setRequests"
